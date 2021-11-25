@@ -1,12 +1,12 @@
 package services
 
 import (
+	"log"
 	"sheetServerApi/global"
 	"sheetServerApi/internal/middlewares/constants"
 	model "sheetServerApi/internal/model/db"
 	"sheetServerApi/internal/model/params"
 	"sheetServerApi/internal/utils"
-	"log"
 	"strconv"
 	"time"
 )
@@ -56,14 +56,15 @@ func GenerateSheetFile(req params.SheetParamsReq) (string,error) {
 	var OpExcelDao model.OpGormExcelMetaDao
 	go OpExcelDao.WriteData(global.DBOrmEngine,req)
 
-	file_dir := global.AppSetting.ExcelFileDir + req.Name + constants.Name_time_mark + strconv.Itoa(int(time.Now().Unix())) + ".xlsx"
+	file_name := req.Name + constants.Name_time_mark + strconv.Itoa(int(time.Now().Unix())) + ".xlsx"
+	file_dir := global.AppSetting.ExcelFileDir + file_name
 	// 文件写入磁盘
 	//file_dir := req.Name + constants.Name_time_mark +  strconv.Itoa(int(time.Now().Unix())) + ".xlsx"
 	if err := f.SaveAs(file_dir);err!=nil {
 		log.Fatal(err)
 		return "error",err
 	}
-	url := global.AppSetting.ReleaseUrl + file_dir
+	url := global.AppSetting.ReleaseUrl + file_name
 	return url ,nil
 }
 

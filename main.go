@@ -1,14 +1,14 @@
 package main
 
 import (
-	"sheetServerApi/global"
-	model "sheetServerApi/internal/model/db"
-	"sheetServerApi/internal/routers"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"log"
 	"net/http"
+	"sheetServerApi/global"
+	model "sheetServerApi/internal/model/db"
+	"sheetServerApi/internal/routers"
 	"time"
 )
 
@@ -98,7 +98,7 @@ func NewSettings() (*Setting,error) {
 	vp := viper.New()
 	vp.SetConfigName("config")
 	// 载入全局配置文件
-	vp.AddConfigPath("/Users/mac/go/src/sheetServerApi/configs")
+	vp.AddConfigPath("/opt/report/configs")
 	//vp.AddConfigPath(constants.Release_config_dir)
 	vp.SetConfigType("yaml")
 	if err := vp.ReadInConfig();err!=nil {

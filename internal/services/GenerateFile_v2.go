@@ -6,7 +6,7 @@ import (
 	"sheetServerApi/internal/model/params"
 	"sheetServerApi/internal/utils"
 	"encoding/json"
-	"github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/xuri/excelize/v2"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"log"

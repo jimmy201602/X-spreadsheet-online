@@ -1,9 +1,9 @@
 package routers
 
 import (
+	"github.com/gin-gonic/gin"
 	"sheetServerApi/internal/handlers"
 	"sheetServerApi/internal/middlewares/Auth"
-	"github.com/gin-gonic/gin"
 )
 
 // 路由限流工具
@@ -36,6 +36,8 @@ func NewRouter() (*gin.Engine) {
 		v2.POST("/xsheetServer/rawdatas/get",handlers.GetTableRawData)
 		// 获取数据源的所有字段信息
 		v2.POST("/xsheetServer/tablemeta/get",handlers.GetSheetTableMeta)
+		// 获取生成的excel文件
+		v2.GET("/sheets/:file",handlers.ReportDownload)
 	}
 
 	return r

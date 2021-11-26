@@ -1,6 +1,6 @@
 let baseUrl = "/api"
 if (process.env.NODE_ENV === "development") {
-    const baseUrl = "http://127.0.0.1:9091/api"
+    baseUrl = "http://127.0.0.1:9091/api"
 }
 
 const Api = {

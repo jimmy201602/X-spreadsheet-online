@@ -101,8 +101,13 @@ npm run dev
 * docker部署方式
 可以让web服务，pg数据库单独跑在一个docker里，前端直接用npm的http-server插件即可
 
-## 微信公众号
-更多分享请关注我的公众号《James的黑板报》
+## 预览视频
+https://user-images.githubusercontent.com/17548183/143454202-a009e34e-8c5a-4044-87b6-a19ef9f0fa9c.mp4
 
-![](https://github.com/zxhjames/learn_resource/blob/gongzhonghao/gongzhonghao.jpg?raw=true)
+
+
+
+
+
+
 

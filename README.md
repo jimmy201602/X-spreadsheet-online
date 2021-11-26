@@ -91,9 +91,7 @@ go run main.go
 
 * 前端
 ```shell
-git checkout -b dev
-git clone https://github.com/zxhjames/X-spreadsheet-online
-cd X-spreadsheet-online
+cd frontend
 替换目录下所有请求的ip为localhost,index.html里的数据库连接信息改成自己的
 npm install
 npm run dev

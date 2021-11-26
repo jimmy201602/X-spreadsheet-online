@@ -83,7 +83,8 @@ create unique index employee_uid_uindex
 git checkout -b main
 git clone https://github.com/zxhjames/X-spreadsheet-online
 cd X-spreadsheet-online
-修改config目录下config.yaml文件的配置，改成你自己的
+复制configs目录下config_example.yaml为config.yaml
+修改configs目录下config.yaml文件的配置，改成你自己的
 修改main中100行代码中的config.yml路径，改为你自己电脑上的绝对路径
 go run main.go
 ```

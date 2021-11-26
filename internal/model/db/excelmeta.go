@@ -1,12 +1,12 @@
 package model
 
 import (
-	"sheetServerApi/internal/model/params"
 	"encoding/json"
 	"github.com/jinzhu/gorm"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
-	"log"
+	"github.com/sirupsen/logrus"
+	"sheetServerApi/internal/model/params"
 )
 
 
@@ -29,15 +29,15 @@ func (OpGormExcelMetaDao) ReadData(db *gorm.DB) ([]params.SheetParamsResp,error)
 			submeta.Name = v.Name
 			submeta.Time = v.Time
 			if err := json.Unmarshal(v.Api,&submeta.Api);err!=nil {
-				log.Fatal(err)
+				logrus.Fatal(err)
 				return resp,err
 			}
 			if err := json.Unmarshal(v.Data,&submeta.Data);err!=nil {
-				log.Fatal(err)
+				logrus.Fatal(err)
 				return resp,err
 			}
 			if err := json.Unmarshal(v.Cell,&submeta.Cell);err!=nil {
-				log.Fatal(err)
+				logrus.Fatal(err)
 				return resp,err
 			}
 			resp = append(resp,submeta)
@@ -67,7 +67,7 @@ func (OpGormExcelMetaDao) WriteData(db *gorm.DB , p params.SheetParamsReq) (err 
 	if err := db.Table("excelmeta").Create(&tmp).Error;err!=nil{
 		return err
 	}
-	log.Println("write data success")
+	logrus.Println("write data success")
 	return nil
 }
 
@@ -90,7 +90,7 @@ func (OpSqlxExcelMetaDao) GetTableMetaInfo(db *sqlx.DB,tableName string) ([]para
 			ORDER BY c.relname DESC,a.attnum ASC
 			`
 	if err := db.Unsafe().Select(&resp,psql,tableName);err!=nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		return nil , err
 	}
 	return resp,nil
@@ -123,7 +123,7 @@ func (d OpSqlxExcelMetaDao) GetSheetHistory(db *sqlx.DB,req params.SheetHistoryR
 	var count int32 = 0
 	psql := `select count(id) from excelmeta offset 0 limit $1`
 	if err := db.Unsafe().Get(&count,psql,req.Offset);err!=nil{
-		log.Fatal(err)
+		logrus.Fatal(err)
 		return resp,err
 	}
 	if count == 0 {
@@ -134,7 +134,7 @@ func (d OpSqlxExcelMetaDao) GetSheetHistory(db *sqlx.DB,req params.SheetHistoryR
 	}
 	psql = `select id , author, name, raw_data,time from excelmeta order by time desc offset 0 limit $1`
 	if err := db.Unsafe().Select(&resp,psql,count);err!=nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		return resp,err
 	}
 	return resp,nil

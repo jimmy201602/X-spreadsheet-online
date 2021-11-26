@@ -20,7 +20,7 @@ import (
 // 路由组件
 func NewRouter() (*gin.Engine) {
 	//自定义报表框架的生成
-	r := gin.New()
+	r := gin.Default()
 	r.Use(Auth.Cors())
 	//r.Use(log.LoggerToFile())
 	r.Use(gin.Recovery())

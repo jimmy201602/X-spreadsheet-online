@@ -1,9 +1,8 @@
 package handlers
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
-	"log"
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"os"
 	"path"
@@ -17,13 +16,13 @@ import (
 func CreateSheetDatas(c *gin.Context) {
 	var req params.SheetParamsReq
 	if err := c.BindJSON(&req); err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		response.ResponseError(c, 400, "参数绑定错误", err)
 		return
 	}
 	url, err := services.GenerateSheetFile(req)
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		response.ResponseError(c, 500, err.Error(), err)
 		return
 	}
@@ -34,13 +33,13 @@ func CreateSheetDatas(c *gin.Context) {
 func GetTableRawData(c *gin.Context) {
 	var req params.SheetRawdataReq
 	if err := c.BindJSON(&req); err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		response.ResponseError(c, 400, "参数绑定错误", err)
 		return
 	}
 	data, err := services.GetExcelRawDatas(req.ID)
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		response.ResponseError(c, 500, err.Error(), err)
 		return
 	}
@@ -51,13 +50,13 @@ func GetTableRawData(c *gin.Context) {
 func GetSheetTableMeta(c *gin.Context) {
 	var req params.SheetTableReq
 	if err := c.BindJSON(&req); err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		response.ResponseError(c, 400, "参数绑定错误", err)
 		return
 	}
 	data, err := services.GetTableMetaInfo(req.TableName)
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		response.ResponseError(c, 500, "生成失败", err)
 		return
 	}
@@ -68,13 +67,13 @@ func GetSheetTableMeta(c *gin.Context) {
 func GetSheetHistory(c *gin.Context) {
 	var req params.SheetHistoryReq
 	if err := c.BindJSON(&req); err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		response.ResponseError(c, 400, "参数绑定错误", err)
 		return
 	}
 	data, err := services.GetSheetHistory(req)
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		response.ResponseError(c, 500, "获取失败", err)
 		return
 	}
@@ -87,8 +86,6 @@ func ReportDownload(c *gin.Context) {
 		c.JSON(404, gin.H{"code": "REPORT_NOT_FOUND", "message": "Report record not found"})
 		return
 	}
-	fmt.Println(file_name)
-	fmt.Println(path.Join(global.AppSetting.ExcelFileDir, file_name))
 	if _, err := os.Stat(path.Join(global.AppSetting.ExcelFileDir, file_name)); err != nil {
 		c.JSON(404, gin.H{"code": "REPORT_NOT_FOUND", "message": "Report record not found"})
 		return

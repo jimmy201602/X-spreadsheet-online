@@ -1,13 +1,13 @@
 package model
 
 import (
-	"sheetServerApi/global"
-	"sheetServerApi/pkg/setting"
 	"fmt"
 	"github.com/jinzhu/gorm"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
-	"log"
+	"github.com/sirupsen/logrus"
+	"sheetServerApi/global"
+	"sheetServerApi/pkg/setting"
 	"time"
 )
 
@@ -25,7 +25,7 @@ func NewDBOrmEngine(databaseSetting *setting.DatabaseOrmSetting) (*gorm.DB,error
 		databaseSetting.Password,
 		))
 	if err!= nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		return nil,err
 	}
 	if global.ServerSetting.RunMode == "debug" {db.LogMode(true)}
@@ -50,7 +50,7 @@ func NewDBSqlxEngine(databaseSetting *setting.DatabaseSqlxSetting) (*sqlx.DB,err
 		databaseSetting.Password,
 	))
 	if err!= nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		return nil,err
 	}
 	//设置超时和空闲时间

@@ -1,11 +1,11 @@
 package utils
 
 import (
+	"errors"
+	"github.com/sirupsen/logrus"
+	"github.com/xuri/excelize/v2"
 	"sheetServerApi/internal/middlewares/constants"
 	"sheetServerApi/internal/model/params"
-	"errors"
-	"github.com/xuri/excelize/v2"
-	"log"
 	"strconv"
 )
 
@@ -87,7 +87,7 @@ func GetOffsetPosition(column_offset_map map[string]int,str string,len int) (str
 
 	columnWord,columnNum,err := SplitBlock(str)
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		return constants.NilStr,err
 	}
 	//todo 这里需要重新计算

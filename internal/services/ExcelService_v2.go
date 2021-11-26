@@ -1,7 +1,7 @@
 package services
 
 import (
-	"log"
+	"github.com/sirupsen/logrus"
 	"sheetServerApi/global"
 	"sheetServerApi/internal/middlewares/constants"
 	model "sheetServerApi/internal/model/db"
@@ -32,7 +32,7 @@ func GenerateSheetFile(req params.SheetParamsReq) (string,error) {
 	 */
 	f,err := utils.Init_file(sheetname)
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		return "error",err
 	}
 
@@ -40,7 +40,7 @@ func GenerateSheetFile(req params.SheetParamsReq) (string,error) {
 	设置行列宽度
 	*/
 	if err := SetColsAndRowslength(f,req.Cell,sheetname);err!=nil{
-		log.Fatal(err)
+		logrus.Fatal(err)
 		return "error",err
 	}
 
@@ -48,7 +48,7 @@ func GenerateSheetFile(req params.SheetParamsReq) (string,error) {
 	循环写入样式元数据和单元格值
 	 */
 	if err := SetBlockStyleAndValue(f,req.Data,sheetname,req.Author);err!=nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		return "error",err
 	}
 
@@ -61,7 +61,7 @@ func GenerateSheetFile(req params.SheetParamsReq) (string,error) {
 	// 文件写入磁盘
 	//file_dir := req.Name + constants.Name_time_mark +  strconv.Itoa(int(time.Now().Unix())) + ".xlsx"
 	if err := f.SaveAs(file_dir);err!=nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		return "error",err
 	}
 	url := global.AppSetting.ReleaseUrl + file_name
@@ -75,7 +75,7 @@ func GetTableMetaInfo(tableName string) ([]params.SheetTableMetaInfo,error) {
 	// 首先去判断数据库字段是否正确
 	data,err := opsqlx.GetTableMetaInfo(global.DBSqlxEngine,tableName)
 	if err!=nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		return nil,err
 	}
 	return data,nil
@@ -85,7 +85,7 @@ func GetTableMetaInfo(tableName string) ([]params.SheetTableMetaInfo,error) {
 func GetExcelRawDatas(id int64) (string,error)  {
 	data,err := opsqlx.GetSheetRawData(global.DBSqlxEngine,id)
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		return data , err
 	}
 	return data,nil
@@ -94,7 +94,7 @@ func GetExcelRawDatas(id int64) (string,error)  {
 func GetSheetHistory(req params.SheetHistoryReq) ([]params.SheetHistoryInfo,error){
 	data,err := opsqlx.GetSheetHistory(global.DBSqlxEngine,req)
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 		return data , err
 	}
 	return data,nil

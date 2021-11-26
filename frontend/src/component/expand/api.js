@@ -1,4 +1,8 @@
-const baseUrl = "http://127.0.0.1:9091/api"
+let baseUrl = "/api"
+if (process.env.NODE_ENV === "development") {
+    const baseUrl = "http://127.0.0.1:9091/api"
+}
+
 const Api = {
     loadTableColumnApi: `${baseUrl}/v2/xsheetServer/tablemeta/get`,
     createReportApi: `${baseUrl}/v2/xsheetServer/create`,

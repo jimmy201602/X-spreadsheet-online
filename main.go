@@ -37,10 +37,13 @@ func main() {
 	// 设置运行模式(release or debug ?)
 	gin.SetMode(global.ServerSetting.RunMode)
 	// 打印日志
-	logrus.SetFormatter(&logrus.TextFormatter{
-		DisableColors: false,
-		FullTimestamp: true,
-	})
+	if global.ServerSetting.RunMode == "debug"{
+		logrus.SetFormatter(&logrus.TextFormatter{
+			DisableColors: false,
+			FullTimestamp: true,
+			TimestampFormat:"2006-01-02 15:04:05",
+		})
+	}
 	// 挂载路由
 	router := routers.NewRouter()
 	s := &http.Server{

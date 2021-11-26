@@ -2,7 +2,7 @@
 
 # 服务器配置信息
 Server:
-  RunMode: release #开发模式
+  RunMode: release #开发模式debug 生产模式release
   HttpPort: 9091  #端口
   ReadTimeout: 60 #超时时间
   WriteTimeout: 60 #超时时间

@@ -8,18 +8,24 @@ import (
 	"github.com/sirupsen/logrus"
 	"os"
 	"path"
-	"sheetServerApi/internal/middlewares/constants"
+	"sheetServerApi/global"
 	"time"
 )
 
 // 日志记录到文件
 func LoggerToFile() gin.HandlerFunc {
-	logFilePath := constants.RELEASE_LOG_FILE_PATH
-	logFileName := constants.LOG_FILE_NAME
+	logFilePath := global.AppSetting.LogFilePath
+	logFileName := global.AppSetting.LogFileName
 	// 日志文件
 	fileName := path.Join(logFilePath, logFileName)
+	//
+	file, err := os.OpenFile(fileName, os.O_RDONLY|os.O_CREATE, 0644)
+	if err != nil {
+		fmt.Println("err", err)
+	}
+	file.Close()
 	// 写入文件
-	src, err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
+	src, err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 	if err != nil {
 		fmt.Println("err", err)
 	}
@@ -53,7 +59,6 @@ func LoggerToFile() gin.HandlerFunc {
 	lfHook := lfshook.NewHook(writeMap, &logrus.JSONFormatter{
 		TimestampFormat:"2006-01-02 15:04:05",
 	})
-
 	// 新增钩子
 	logger.AddHook(lfHook)
 	return func(c *gin.Context) {

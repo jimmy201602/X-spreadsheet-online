@@ -2,3 +2,4 @@ sheets
 configs/config.yaml
 .idea
 frontend/node_modules
+log

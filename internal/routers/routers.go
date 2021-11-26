@@ -2,8 +2,10 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	"sheetServerApi/global"
 	"sheetServerApi/internal/handlers"
 	"sheetServerApi/internal/middlewares/Auth"
+	"sheetServerApi/internal/middlewares/log"
 )
 
 // 路由限流工具
@@ -22,7 +24,9 @@ func NewRouter() (*gin.Engine) {
 	//自定义报表框架的生成
 	r := gin.Default()
 	r.Use(Auth.Cors())
-	//r.Use(log.LoggerToFile())
+	if global.ServerSetting.RunMode == "release" {
+		r.Use(log.LoggerToFile())
+	}
 	r.Use(gin.Recovery())
 	//r.Use(limit.RateLimiter(methodLimiters))
 	v2 := r.Group("/v2")

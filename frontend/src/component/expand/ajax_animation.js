@@ -1,24 +1,24 @@
 const axios = require('axios');
 
-// export default function addAnimation(){
-//   // 请求拦截器
-//   axios.interceptors.request.use((config) => {
-//     startAnimation();
-//     return config;
-//   }, (error) => {
-//     endAnimation();
-//     return Promise.reject(error);
-//   })
-  
-//   // 响应拦截器
-//   axios.interceptors.response.use((response) => {
-//     endAnimation();
-//     return response;
-//   }, (error) => {
-//     endAnimation();
-//     return Promise.reject(error);
-//   })    
-// }
+export default function addAnimation(){
+  // 请求拦截器
+  axios.interceptors.request.use((config) => {
+    startAnimation();
+    return config;
+  }, (error) => {
+    endAnimation();
+    return Promise.reject(error);
+  })
+
+  // 响应拦截器
+  axios.interceptors.response.use((response) => {
+    endAnimation();
+    return response;
+  }, (error) => {
+    endAnimation();
+    return Promise.reject(error);
+  })
+}
 
 export function startAnimation(){
     let sheet_page = document.getElementsByClassName("x-spreadsheet");

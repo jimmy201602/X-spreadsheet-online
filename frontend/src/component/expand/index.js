@@ -5,12 +5,15 @@ import initSheetUpdater from './sheet_updater';
 import initFiledList from './field_list';
 import {defaultMappingList} from './field_list';
 import initFieldLoader from './field_loader';
-//import addAnimation from './ajax_animation';
+import addAnimation from './ajax_animation';
 
 
 export function initExpand() {
   let toolbar_btns = document.getElementsByClassName("x-spreadsheet-toolbar-btns");
   let toolbar = document.getElementsByClassName("x-spreadsheet-toolbar");
+
+  //add ajax load animation
+  // addAnimation()
 
   // 加载LOGO
   // let logo = document.createElement('img');

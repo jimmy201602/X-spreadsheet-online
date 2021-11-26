@@ -1,6 +1,7 @@
 //MODIFIED:加载数据源的字段
 import FieldListener from './field_listener';
 import {throttle} from './throttle';
+import {Api} from './api';
 
 
 export default function filedLoader(toolbar){
@@ -12,7 +13,7 @@ export default function filedLoader(toolbar){
   fieldLoaderBtn.className = "x-spreadsheet-toolbar-expand-btns-fieldloader";
 
   fieldLoaderBtn.addEventListener("click", throttle(function(){
-    let fieldListenerInstance = new FieldListener("http://127.0.0.1:9091/v2/xsheetServer/tablemeta/get");
+    let fieldListenerInstance = new FieldListener(Api.loadTableColumnApi);
 
     // 目前是针对postgreSQL查询写死的数据
     let postBody = window.xs.currentField.source;

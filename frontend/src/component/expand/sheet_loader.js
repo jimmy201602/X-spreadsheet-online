@@ -1,6 +1,7 @@
 //MODIFIED:加载json数据，然后显示在表格中
 import JsonToData from './json_to_data';
 import {throttle} from './throttle';
+import {Api} from './api';
 
 export default function initSheetLoader(toolbar){
   let sheetLoadDiv = document.createElement('div');
@@ -11,7 +12,7 @@ export default function initSheetLoader(toolbar){
   sheetLoaderBtn.className = "x-spreadsheet-toolbar-expand-btns-loader";
 
   sheetLoaderBtn.addEventListener("click", throttle(function(){
-    let json2dataInstance = new JsonToData("http://127.0.0.1:9091/v2/xsheetServer/rawdatas/get"); //这里创建实例会从后端接口读取数据到实例属性中，然后在异步访问后自动执行加载
+    let json2dataInstance = new JsonToData(Api.getReportDataApi); //这里创建实例会从后端接口读取数据到实例属性中，然后在异步访问后自动执行加载
     json2dataInstance.gather();
   }, 1000), false);
 

@@ -1,6 +1,7 @@
 //MODIFIED:上传表格数据到后端
 import DataToJson from './data_to_json';
 import {throttle} from './throttle';
+import {Api} from './api';
 
 export default function initSheetUpdater(toolbar){
   let sheetUpdaterDiv = document.createElement('div');
@@ -12,7 +13,7 @@ export default function initSheetUpdater(toolbar){
 
   sheetUpdaterBtn.addEventListener("click", throttle(function(){
     let data2josnInstance = new DataToJson();
-    data2josnInstance.setSendDes("http://127.0.0.1:9091/v2/xsheetServer/create");
+    data2josnInstance.setSendDes(Api.createReportApi);
     data2josnInstance.send();
   }, 1000), false);
 

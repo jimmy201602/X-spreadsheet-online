@@ -12,7 +12,7 @@ export default function initSheetLoader(toolbar){
   sheetLoaderBtn.className = "x-spreadsheet-toolbar-expand-btns-loader";
 
   sheetLoaderBtn.addEventListener("click", throttle(function(){
-    let json2dataInstance = new JsonToData(Api.getReportDataApi); //这里创建实例会从后端接口读取数据到实例属性中，然后在异步访问后自动执行加载
+    let json2dataInstance = new JsonToData(Api.getReportDataApi,1); //这里创建实例会从后端接口读取数据到实例属性中，然后在异步访问后自动执行加载
     json2dataInstance.gather();
   }, 1000), false);
 

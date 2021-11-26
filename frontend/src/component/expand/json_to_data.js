@@ -2,17 +2,17 @@ import {startAnimation, endAnimation} from './ajax_animation';
 const axios = require('axios');
 
 export default class JsonToData{
-  constructor(des){
+  constructor(des,id){
     this.json = undefined;
     this.receiveDes = des;
-    this.sendbody = {"id": 1}; //目前是写死的
+    this.sendbody = {"id": id}; //目前是写死的
   }
 
   gather(){
-    startAnimation();  
+    startAnimation();
     axios.post(this.receiveDes, this.sendbody)
       .then(response => {
-        //MODIFIED: 还不确定后端返回的是字符串还是对象，这里要改  
+        //MODIFIED: 还不确定后端返回的是字符串还是对象，这里要改
         let jsonStr = response.data.data;
         console.log(jsonStr);
         this.json = JSON.parse(jsonStr);
@@ -23,7 +23,7 @@ export default class JsonToData{
         endAnimation();
       })
   }
-  
+
   load(){
     console.log(this.json);
     //TODO: $<word>$ 特殊字段还没处理

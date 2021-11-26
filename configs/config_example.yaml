@@ -12,7 +12,7 @@ App:
   AppName: sheetServerApi #APP名称
   LogFilePath: /opt/report/log #日志记录位置
   LogFileName: system.log #日志名
-  ReleaseUrl: http://localhost:9091/v2/sheets/ #生产环境的配置
+  ReleaseUrl: http://localhost:9091/api/v2/sheets/ #生产环境的配置
   ConfigDir: /opt/report/configs #配置文件的测试目录
   ExcelFileDir: /opt/report/sheets/ #excel文件保存地址
 

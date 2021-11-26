@@ -29,7 +29,7 @@ func NewRouter() (*gin.Engine) {
 	}
 	r.Use(gin.Recovery())
 	//r.Use(limit.RateLimiter(methodLimiters))
-	v2 := r.Group("/v2")
+	v2 := r.Group("/api/v2")
 	{
 		v2.GET("/hello",handlers.Index)
 		// 创建报表
